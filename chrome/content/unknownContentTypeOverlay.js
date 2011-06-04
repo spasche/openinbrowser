@@ -100,7 +100,7 @@ var OIB_DownloadOverlay = {
     }
 
     document.documentElement.setAttribute('ondialogaccept',
-      'if(OIB_DownloadOverlay.dialogAccepted()) {' +
+      'if (OIB_DownloadOverlay.dialogAccepted()) {' +
       '  return OIB_DownloadOverlay.dialogAcceptRetVal;' +
       '} else {' +
         document.documentElement.getAttribute('ondialogaccept') +

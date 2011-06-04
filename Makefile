@@ -9,13 +9,8 @@ xpi:
 	rm -rf ../tmp || :
 	mkdir ../tmp
 	cp -r ../$(NAME) ../tmp
-	cd ../tmp/$(NAME)/chrome; \
-	zip -r $(NAME).jar *; \
-	rm -rf content locale
-	rm -rf ../tmp/$(NAME)/.hg
+	rm -rf ../tmp/$(NAME)/.hg ../tmp/$(NAME)/.git ../tmp/$(NAME)/tests
 	find ../tmp -name "*~" -exec rm {} \;
-	rm ../tmp/$(NAME)/chrome.manifest
-	mv ../tmp/$(NAME)/chrome.manifest_jar ../tmp/$(NAME)/chrome.manifest
 	cd ../tmp/$(NAME); \
 	zip -r $(TARGET_XPI) *
 	rm ../$(TARGET_XPI) || :

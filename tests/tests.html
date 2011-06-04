@@ -5,7 +5,9 @@
     <title>OpenInBrowser testcases</title>
     <script type="text/javascript">
     onload = function() {
-      document.body.className = location.protocol.replace(":", "");
+      var protocol = location.protocol.replace(":", "");
+      document.body.className = protocol;
+      document.title = "[" + protocol + "] " + document.title;
     }
     </script>
     <style type="text/css">
