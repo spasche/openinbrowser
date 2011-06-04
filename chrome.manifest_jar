@@ -1,0 +1,12 @@
+content  openinbrowser  jar:chrome/openinbrowser.jar!/content/
+locale   openinbrowser  de-DE  jar:chrome/openinbrowser.jar!/locale/de-DE/
+locale   openinbrowser  en-US  jar:chrome/openinbrowser.jar!/locale/en-US/
+locale   openinbrowser  fr  jar:chrome/openinbrowser.jar!/locale/fr/
+locale   openinbrowser  sv-SE  jar:chrome/openinbrowser.jar!/locale/sv-SE/
+
+overlay  chrome://mozapps/content/downloads/unknownContentType.xul  chrome://openinbrowser/content/unknownContentTypeOverlay.xul
+overlay  chrome://browser/content/browser.xul  chrome://openinbrowser/content/browserOverlay.xul
+overlay  chrome://navigator/content/navigator.xul  chrome://openinbrowser/content/browserOverlay.xul
+
+component {14aa9340-c449-4956-a5f9-a52fb32f933d} components/OpenInBrowser.js
+contract @spasche.net/openinbrowser;1 {14aa9340-c449-4956-a5f9-a52fb32f933d}

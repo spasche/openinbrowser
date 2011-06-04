@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>OpenInBrowser testcases</title>
+    <script type="text/javascript">
+    onload = function() {
+      document.body.className = location.protocol.replace(":", "");
+    }
+    </script>
+    <style type="text/css">
+      body {
+        font-family: Corbel, sans;
+        margin: 1em 3em;
+      }
+      body.http > .file,
+      body.file > .http {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Open In Browser extension testing.</h2>
+    <div class="http">
+      <p>
+        HTTP tests, follow the instructions below. You need PHP enabled for the
+        mime.php file in this same directory.
+        For the file tests, open this page using file:/// protocol.
+      </p>
+      <ul>
+        <li>Click on
+          <a href="mime.php?do=1&type=text%2Fplain&disposition=attachment">Text attachment</a>.
+          This should open a popup with entry "Text" selected.
+          Open page with that type and check it works as expected.
+        </li>
+        <li>
+          same with "Image"
+          <a href="mime.php?do=1&type=image%2Fjpeg&disposition=attachment">Image jpeg attachment</a>.
+        </li>
+        <li>
+          same with "Image"
+          <a href="mime.php?do=1&type=image%2Fpng&disposition=attachment">Image png attachment</a>.
+        </li>
+        <li>
+          same with "XML"
+          <a href="mime.php?do=1&type=text%2Fxml&disposition=attachment">XML attachment</a>.
+        </li>
+        <li>
+          same with "Web Page"
+          <a href="mime.php?do=1&type=text%2Fhtml&disposition=attachment">HTML attachment</a>.
+        </li>
+        <li>
+          Add a pref string "extensions.openinbrowser.additional_mimes" set to "foo/bar".
+          Clicking on the following links should select the foo/bar item.
+          <a href="mime.php?do=1&type=foo%2Fbar&disposition=attachment">foo/bar attachment</a>.
+          <a href="mime.php?do=1&type=foo%2Fbaz&disposition=attachment">foo/baz attachment</a>.
+        </li>
+        <li>
+          Remove the "extensions.openinbrowser.additional_mimes" preference.
+          Clicking on the following links should show the correct MIME type in the "Server Sent MIME (...)" label entry.
+          <a href="mime.php?do=1&type=foo%2Fbar&disposition=attachment">foo/bar attachment</a>.
+          <a href="mime.php?do=1&type=foo%2Fbaz&disposition=attachment">foo/baz attachment</a>.
+        </li>
+        <li>
+          Click on
+          <a href="mime.php?do=1&type=text%2Fplain&disposition=attachment">Text attachment</a>.
+          Selecting "Other..." and entering an invalid mime type "foo", should show an error and keep the dialog open.
+          Entering "text/plain" should open page as text in browser.
+        </li>
+        <li>
+          Open "View" > "View As", you should see Text, Web Page, Page Source, XML, Image, Other...
+          Check they are working as expected.
+        </li>
+        <li>
+          Click on "View" > "View As" > "Other...". entering an invalid mime type "foo", should show an error.
+          Entering "text/plain" should open current page as text in browser.
+        </li>
+        <li>
+          Non HTTP test, click on <a href="ftp://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/latest-trunk/">this link</a>.
+          "View" > "View As" should contain only "Page Source". Check it is working.
+        </li>
+        <li>
+          Non HTTP test with the open with dialog, click on <a href="ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/3.0.11/win32/en-US/Firefox%20Setup%203.0.11.exe">this link</a>.
+          The dialog should show only "Page Source" in the list.
+        </li>
+        <li>
+          HTTPS test, open <a href="https://bugzilla.mozilla.org/">this link</a>. Should behave as other http pages.
+        </li>
+        <li>
+          Sniffing tests. Open <a href="files/text_with_binary_content.txt">this text file containing binary content</a>.
+          You should be able to open it as text in the browser.
+        </li>
+        <li>
+          Tab selection test: open <a href="mime.php?do=1&type=text%2Fplain&disposition=attachment">Text attachment</a>
+          in a background tab (middle click the link). Opening in browser as text should open
+          the content in the background tab, and not the current tab.
+        </li>
+        <li>
+          Tab selection test 2: open <a href="open_after_timeout.html">this page</a>.
+          Then open a new window (you have 5sec to do so). When the "Opening..." dialog appears, select to open in browser
+          as text. The content should be opened in original tab and not the new window.
+        </li>
+      </ul>
+
+      TODO:
+      Not possible to open the following url as text. Need to investigate
+      "http://releases.mozilla.org/pub/mozilla.org/firefox/releases/3.0/win32/en-US/Firefox%20Setup%203.0.exe"
+
+    </div>
+    <div class="file">
+      <p>
+        File tests, follow the instructions below.
+        For the HTTP tests, open this page using http:/// protocol.
+      </p>
+      <ul>
+        <li>
+          Open <a href="files/image_png.png">this image</a>. View > View As should
+          only display "Page Source". Check viewing that as "Page Source"
+          (should show binary data on Firefox 3.0, Firefox >= 3.5 still shows
+          the image for some reason).
+        </li>
+        <li>
+          Open
+          <a href="files/test.py">test.py</a>. You should only see "Page Source"
+          in the list (doesn't work on Mac, .py files are opened as text/plain).
+        </li>
+        <li>
+          <a href="files/test.avi">test.avi</a>
+        </li>
+        <li>
+          <a href="files/text_plain.txt">text_plain.txt</a>
+        </li>
+        <li>
+          <a href="files/text_xml.xml">text_xml.xml</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
