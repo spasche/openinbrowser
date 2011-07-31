@@ -28,7 +28,7 @@ var OIB_BrowserOverlay = {
     var popup = event.target;
 
     var uri = Application.activeWindow.activeTab.uri;
-    OpenInBrowser.populateMenu(document.getElementById("mimeTypesPopup"), uri);
+    OpenInBrowser.populateMenu(popup, uri);
   },
 
   onSetMimeCommand: function OIBBO_onSetMimeCommand(event) {

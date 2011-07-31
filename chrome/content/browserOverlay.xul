@@ -52,9 +52,17 @@
     <menu id="viewAsMenu" insertafter="charsetMenu"/>
   </menupopup>
 
+  <menupopup id="appmenu_webDeveloper_popup">
+    <menu id="appmenu_webDeveloper_viewAsMenu" insertafter="appmenu_developer_charsetMenu"/>
+  </menupopup>
+
   <menu id="viewAsMenu" label="&viewAs.label;" accesskey="&viewAs.accesskey;">
     <menupopup command="cmd_mimeTypeChange" id="mimeTypesPopup"
                onpopupshowing="OIB_BrowserOverlay.populateMimeTypesMenu(event)"/>
   </menu>
 
+  <menu id="appmenu_webDeveloper_viewAsMenu" label="&viewAs.label;" accesskey="&viewAs.accesskey;">
+    <menupopup command="cmd_mimeTypeChange" id="appmenu_webDeveloper_mimeTypesPopup"
+               onpopupshowing="OIB_BrowserOverlay.populateMimeTypesMenu(event)"/>
+  </menu>
 </overlay>

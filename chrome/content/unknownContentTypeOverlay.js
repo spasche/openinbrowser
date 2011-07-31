@@ -38,7 +38,7 @@ var OIB_DownloadOverlay = {
   },
 
   dialogAccepted: function OIBDO_dialogAccepted() {
-    if (document.getElementById('mode').selectedItem.id != "openInBrowser")
+    if (document.getElementById("mode").selectedItem.id != "openInBrowser")
       return false;
 
     this.dialogAcceptRetVal = true;
@@ -49,7 +49,7 @@ var OIB_DownloadOverlay = {
       this.dialogAcceptRetVal = false;
     } else {
       var parent = dialog.mContext.QueryInterface(Ci.nsIInterfaceRequestor)
-                                  .getInterface(Ci.nsIDOMWindowInternal);
+                                  .getInterface(Ci.nsIDOMWindow);
       OpenInBrowser.reloadWithMime(dialog.mLauncher.source, mime,
                                    parent.document);
     }
@@ -99,12 +99,12 @@ var OIB_DownloadOverlay = {
       document.getElementById("rememberChoice").collapsed = true;
     }
 
-    document.documentElement.setAttribute('ondialogaccept',
-      'if (OIB_DownloadOverlay.dialogAccepted()) {' +
-      '  return OIB_DownloadOverlay.dialogAcceptRetVal;' +
-      '} else {' +
-        document.documentElement.getAttribute('ondialogaccept') +
-      '}');
+    document.documentElement.setAttribute("ondialogaccept",
+      "if (OIB_DownloadOverlay.dialogAccepted()) {" +
+      "  return OIB_DownloadOverlay.dialogAcceptRetVal;" +
+      "} else {" +
+        document.documentElement.getAttribute("ondialogaccept") +
+      "}");
 
     // disable the remember choice label, as choice remembering
     //  is not implemented yet for open in browser.
@@ -128,7 +128,7 @@ var OIB_DownloadOverlay = {
     var serverSentMime = dialog.mLauncher.MIMEInfo.MIMEType;
 
     var selectedItem = this.getDefaultSelectedItem(mimeTypesPopup, serverSentMime);
-    document.getElementById('mimeTypesMenu').selectedItem = selectedItem;
+    document.getElementById("mimeTypesMenu").selectedItem = selectedItem;
 
     // Insert the server sent MIME menu item.
     if (!/^http/.test(downloadedDocumentUri.scheme))
@@ -161,6 +161,6 @@ var OIB_DownloadOverlay = {
   }
 }
 
-window.addEventListener('load', function init() {
+window.addEventListener("load", function init() {
   OIB_DownloadOverlay.init();
 }, false);
