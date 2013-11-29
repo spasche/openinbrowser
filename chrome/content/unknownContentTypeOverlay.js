@@ -144,6 +144,8 @@ var OIB_DownloadOverlay = {
     item.mime = serverSentMime;
     var mimeSeparator = document.getElementById(OpenInBrowser.SEPARATOR_ID);
     mimeTypesPopup.insertBefore(item, mimeSeparator);
+
+    document.getElementById("mode").selectedItem = document.getElementById("openInBrowser");
   },
 
   onMimeTypeChange: function(event) {
