@@ -40,6 +40,7 @@ var OpenInBrowser = {
     // match the real image type. For instance, a PNG image sent with
     // image/jpeg Content-Type will still be displayed properly.
     "image/jpeg",
+    "application/pdf",
     "oib_separator",
     "other",
   ],
