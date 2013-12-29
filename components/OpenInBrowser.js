@@ -62,39 +62,52 @@ OpenInBrowser.prototype = {
   classID: Components.ID("{14aa9340-c449-4956-a5f9-a52fb32f933d}"),
   contractID: "@spasche.net/openinbrowser;1",
 
-  _clearCacheEntry: function OIB_clearCacheEntry(url) {
+  _clearCacheEntry: function OIB_clearCacheEntry(url, callback) {
     const cacheService = Cc["@mozilla.org/network/cache-service;1"].
                          getService(Ci.nsICacheService);
     var httpCacheSession = cacheService.createSession("HTTP", 0, true);
     httpCacheSession.doomEntriesIfExpired = false;
     try {
       var cacheKey = url.replace(/#.*$/, "");
-      var entry = httpCacheSession.openCacheEntry(cacheKey, Ci.nsICache.ACCESS_READ_WRITE, false);
-      entry.doom();
-      entry.close();
+
+      var clearEntryListener = {
+        onCacheEntryAvailable: function(entry, access, status) {
+          try {
+            entry.doom();
+            entry.close();
+          } catch (e) {
+            debug("Exception during entry clearing: " + e);
+          }
+          callback();
+        }
+      };
+
+      httpCacheSession.asyncOpenCacheEntry(cacheKey, Ci.nsICache.ACCESS_READ_WRITE, clearEntryListener, false);
     } catch (e) {
       debug("Exception during cache clearing: " + e);
+      callback();
     }
   },
 
   addInterceptInfo: function OIB_addInterceptInfo(url, mime) {
     debug("Added intercept info " + url);
 
-    this._clearCacheEntry(url);
-    this._interceptedInfos.push(new InterceptedInfo(url, mime));
-    if (this._interceptedInfos.length == 1) {
-      this._startCapture();
-    }
-
-    // remove intercepted url's after a while in case the observer is not triggered
-    var timer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
     var self = this;
-    var callback = {
-      notify: function notifyCallback(timer) {
-        self._removeInterceptedInfo(url);
+    this._clearCacheEntry(url, function() {
+      self._interceptedInfos.push(new InterceptedInfo(url, mime));
+      if (self._interceptedInfos.length == 1) {
+        self._startCapture();
       }
-    };
-    timer.initWithCallback(callback, MAX_INTERCEPT_TIME, Ci.nsITimer.TYPE_ONE_SHOT);
+
+      // remove intercepted url's after a while in case the observer is not triggered
+      var timer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
+      var callback = {
+        notify: function notifyCallback(timer) {
+          self._removeInterceptedInfo(url);
+        }
+      };
+      timer.initWithCallback(callback, MAX_INTERCEPT_TIME, Ci.nsITimer.TYPE_ONE_SHOT);
+    });
   },
 
   _startCapture: function OIB_startCapture() {
