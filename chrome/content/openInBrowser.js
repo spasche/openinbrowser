@@ -145,11 +145,11 @@ var OpenInBrowser = {
           if (tab.document == doc)
             matchingTabs.push(tab);
         })
-      })
+      });
       if (matchingTabs.length == 1) {
         tab = matchingTabs[0];
       }
     }
     tab.load(uri);
   }
-}
+};

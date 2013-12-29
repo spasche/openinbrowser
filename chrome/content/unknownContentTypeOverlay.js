@@ -159,7 +159,7 @@ var OIB_DownloadOverlay = {
     }
     window.sizeToContent();
   }
-}
+};
 
 window.addEventListener("load", function init() {
   OIB_DownloadOverlay.init();

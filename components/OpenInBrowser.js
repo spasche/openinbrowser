@@ -55,7 +55,7 @@ function OpenInBrowser() {
   this.wrappedJSObject = this;
 
   this._interceptedInfos = [];
-};
+}
 
 OpenInBrowser.prototype = {
   classDescription: "Open in browser Javascript XPCOM Component",
@@ -93,7 +93,7 @@ OpenInBrowser.prototype = {
       notify: function notifyCallback(timer) {
         self._removeInterceptedInfo(url);
       }
-    }
+    };
     timer.initWithCallback(callback, MAX_INTERCEPT_TIME, Ci.nsITimer.TYPE_ONE_SHOT);
   },
 
