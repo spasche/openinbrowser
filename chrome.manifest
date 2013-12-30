@@ -2,6 +2,7 @@ content  openinbrowser  chrome/content/
 locale   openinbrowser  de-DE  chrome/locale/de-DE/
 locale   openinbrowser  en-US  chrome/locale/en-US/
 locale   openinbrowser  fr  chrome/locale/fr/
+locale   openinbrowser  ru  chrome/locale/ru/
 locale   openinbrowser  sv-SE  chrome/locale/sv-SE/
 
 overlay  chrome://mozapps/content/downloads/unknownContentType.xul  chrome://openinbrowser/content/unknownContentTypeOverlay.xul
