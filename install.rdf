@@ -11,8 +11,6 @@
     <em:description>Offers the possibility to display documents in browser window.</em:description>
     <em:creator>Sylvain Pasche</em:creator>
     <em:contributor>Stanimir Stamenkov</em:contributor>
-    <em:contributor>Richard Nonix</em:contributor>
-    <em:contributor>Mikael Hiort af Ornäs</em:contributor>
     <em:contributor>Mathnerd314</em:contributor>
     <em:contributor>Felipe Gasper</em:contributor>
     <em:homepageURL>https://github.com/spasche/openinbrowser</em:homepageURL>
@@ -22,6 +20,7 @@
         <em:locale>de-DE</em:locale>
         <em:name>Open in Browser</em:name>
         <em:description>Ermöglicht die Server gesendete MIME zu ändern und Dokumente direkt im Browserfenster zu betrachten.</em:description>
+        <em:translator>Richard Nonix</em:translator>
       </Description>
     </em:localized>
     <em:localized>
@@ -29,6 +28,7 @@
         <em:locale>fr</em:locale>
         <em:name>Ouvrir dans le navigateur</em:name>
         <em:description>Offre la possibilité d'ouvrir les documents dans la fenêtre du navigateur.</em:description>
+        <em:translator>Sylvain Pasche</em:translator>
       </Description>
     </em:localized>
     <em:localized>
@@ -36,6 +36,7 @@
         <em:locale>ru</em:locale>
         <em:name>Open in Browser</em:name>
         <em:description>Позволяет открывать документы в окне браузера.</em:description>
+        <em:translator>Infocatcher</em:translator>
       </Description>
     </em:localized>
     <em:localized>
@@ -43,6 +44,7 @@
         <em:locale>sv-SE</em:locale>
         <em:name>Open in Browser</em:name>
         <em:description>Ger dig möjlighet att öppna dokument i webbläsarfönstret.</em:description>
+        <em:translator>Mikael Hiort af Ornäs</em:translator>
       </Description>
     </em:localized>
 
