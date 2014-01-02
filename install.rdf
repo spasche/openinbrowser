@@ -33,6 +33,13 @@
     </em:localized>
     <em:localized>
       <Description>
+        <em:locale>ru</em:locale>
+        <em:name>Open in Browser</em:name>
+        <em:description>Позволяет открывать документы в окне браузера.</em:description>
+      </Description>
+    </em:localized>
+    <em:localized>
+      <Description>
         <em:locale>sv-SE</em:locale>
         <em:name>Open in Browser</em:name>
         <em:description>Ger dig möjlighet att öppna dokument i webbläsarfönstret.</em:description>
