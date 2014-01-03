@@ -22,7 +22,7 @@
     </style>
   </head>
   <body>
-    <h2>Open In Browser extension testing.</h2>
+    <h2>Open in Browser extension testing.</h2>
     <div class="http">
       <p>
         HTTP tests, follow the instructions below. You need PHP enabled for the
@@ -56,6 +56,12 @@
           <a href="mime.php?do=1&type=application%2Fpdf&disposition=attachment">PDF attachment</a>.
         </li>
         <li>
+          Default MIME selection for unknown MIME type:
+          <a href="mime.php?do=1&type=application%2Funknown&disposition=attachment">application/unknown</a>.
+          <a href="mime.php?do=1&type=unknown%2Funknown&disposition=attachment">unknown/unknown</a>.
+          <a href="mime.php?do=1&type=image%2Funknown&disposition=attachment">image/unknown</a>.
+        </li>
+        <li>
           Add a pref string "extensions.openinbrowser.additional_mimes" set to "foo/bar".
           Clicking on the following links should select the foo/bar item.
           <a href="mime.php?do=1&type=foo%2Fbar&disposition=attachment">foo/bar attachment</a>.
@@ -82,18 +88,18 @@
           Entering "text/plain" should open current page as text in browser.
         </li>
         <li>
-          Non HTTP test, click on <a href="ftp://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/latest-trunk/">this link</a>.
+          Non HTTP test: click on <a href="ftp://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/latest-trunk/">this link</a>.
           "View" > "View As" should contain only "Page Source". Check it is working.
         </li>
         <li>
-          Non HTTP test with the open with dialog, click on <a href="ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/3.0.11/win32/en-US/Firefox%20Setup%203.0.11.exe">this link</a>.
+          Non HTTP test with the open with dialog: click on <a href="ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/3.0.11/win32/en-US/Firefox%20Setup%203.0.11.exe">this link</a>.
           The dialog should show only "Page Source" in the list.
         </li>
         <li>
-          HTTPS test, open <a href="https://bugzilla.mozilla.org/">this link</a>. Should behave as other http pages.
+          HTTPS test: open <a href="https://bugzilla.mozilla.org/">this link</a>. Should behave as other http pages.
         </li>
         <li>
-          Sniffing tests. Open <a href="files/text_with_binary_content.txt">this text file containing binary content</a>.
+          Sniffing test: open <a href="files/text_with_binary_content.txt">this text file containing binary content</a>.
           You should be able to open it as text in the browser.
         </li>
         <li>

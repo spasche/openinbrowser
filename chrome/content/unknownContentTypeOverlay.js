@@ -58,26 +58,33 @@ var OIB_DownloadOverlay = {
   },
 
   getDefaultSelectedItem: function(mimeTypesPopup, serverSentMime) {
-    // Exact match.
-    for (var i = 0; i < mimeTypesPopup.childNodes.length; i++) {
-      var item = mimeTypesPopup.childNodes[i];
-      if (item.mime && item.mime == serverSentMime)
-        return item;
-    }
+    var mimeToItem = {};
+    var imageItem;
 
     function getMediaType(mime) {
       return mime.split("/")[0].toLowerCase();
     }
 
-    // Media type match.
     for (var i = 0; i < mimeTypesPopup.childNodes.length; i++) {
       var item = mimeTypesPopup.childNodes[i];
-      if (item.mime &&
-          (getMediaType(item.mime) == getMediaType(serverSentMime)))
-        return item;
+      if (!item.mime)
+        continue;
+      mimeToItem[item.mime] = item;
+      if (getMediaType(item.mime) == "image")
+        imageItem = item;
     }
-    // Fallback, select first entry.
-    return mimeTypesPopup.firstChild;
+
+    // exact match
+    if (mimeToItem[serverSentMime])
+      return mimeToItem[serverSentMime];
+
+    // special case for image types.
+    var serverSentMediaType = getMediaType(serverSentMime);
+    if (serverSentMediaType == "image" && imageItem)
+      return imageItem;
+
+    // fallback to text/plain
+    return mimeToItem["text/plain"];
   },
 
   init: function OIBDO_init(event) {
