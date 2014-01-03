@@ -21,6 +21,7 @@ For instance, `application/pdf|audio/ogg-vorbis`.
 
 * It does not work for protocols other that HTTP because of a technical limitation. It is only possible to view the content as source in this case.
 * Automatic opening in browser is not implemented, that's why the "Do this automatically for files like this..." checkbox is greyed out when open in browser is selected.
+* Some users have reported compatibility issues with the "Tab Mix Plus" add-on.
 
 ## Building the extension
 
