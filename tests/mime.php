@@ -47,8 +47,11 @@ if (isset($_REQUEST["do"]) && $_REQUEST["do"] == 1) {
 }
 }
 ?>
-<title>MIME General-purpose testcase</title>
-
+<DOCTYPE html>
+<head>
+  <title>MIME General-purpose testcase</title>
+  <meta charset="utf-8">
+</head>
 <h1>GET</h1>
 <form action="<?echo $_SERVER['PHP_SELF'];?>" method="GET">
 <input type="hidden" name="do" value="1">

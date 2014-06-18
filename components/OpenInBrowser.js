@@ -24,7 +24,7 @@
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
-const Cr = Components.results;
+const Cu = Components.utils;
 
 const MAX_INTERCEPT_TIME = 10000;
 
@@ -33,7 +33,10 @@ const EXAMINE_MERGED_TOPIC = "http-on-examine-merged-response";
 
 const DEBUG = false;
 
-Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+const { Services } = Cu.import("resource://gre/modules/Services.jsm", {});
+const { XPCOMUtils } = Cu.import("resource://gre/modules/XPCOMUtils.jsm", {});
+const { LoadContextInfo } = Cu.import("resource://gre/modules/LoadContextInfo.jsm", {});
+
 
 /**
  * This object stores information which will be used for intercepting URL's
@@ -62,15 +65,44 @@ OpenInBrowser.prototype = {
   classID: Components.ID("{14aa9340-c449-4956-a5f9-a52fb32f933d}"),
   contractID: "@spasche.net/openinbrowser;1",
 
-  _clearCacheEntry: function OIB_clearCacheEntry(url, callback) {
-    const cacheService = Cc["@mozilla.org/network/cache-service;1"].
-                         getService(Ci.nsICacheService);
-    var httpCacheSession = cacheService.createSession("HTTP", 0, true);
+  // Clear cache entry using the new cache2 service, introduced in Firefox 32.
+  _clearCacheEntryV2: function OIB__clearCacheEntryV2(url, callback) {
+
+    function doomURL(storage, url, callback) {
+      storage.asyncDoomURI(Services.io.newURI(url, null, null), "", {
+        onCacheEntryDoomed: function(result) {
+          debug("onCacheEntryDoomed result for url '" + url + "': " + result);
+          callback();
+        }
+      });
+    }
+
+    try {
+      let diskStorage = Services.cache2.diskCacheStorage(LoadContextInfo.default, false);
+      doomURL(diskStorage, url, function() {
+        let memoryStorage = Services.cache2.memoryCacheStorage(LoadContextInfo.default);
+        doomURL(memoryStorage, url, callback);
+      });
+
+    } catch (e) {
+      debug("Exception during cache clearing: " + e);
+      callback();
+    }
+  },
+
+  _clearCacheEntry: function OIB__clearCacheEntry(url, callback) {
+    let httpCacheSession;
+    try {
+      httpCacheSession = Services.cache.createSession("HTTP", 0, true);
+    } catch (ex) {
+      debug("Trying to clear cache entry using cache2 service");
+      return this._clearCacheEntryV2(url, callback);
+    }
     httpCacheSession.doomEntriesIfExpired = false;
     try {
-      var cacheKey = url.replace(/#.*$/, "");
+      let cacheKey = url.replace(/#.*$/, "");
 
-      var clearEntryListener = {
+      let clearEntryListener = {
         onCacheEntryAvailable: function(entry, access, status) {
           try {
             entry.doom();
@@ -92,7 +124,7 @@ OpenInBrowser.prototype = {
   addInterceptInfo: function OIB_addInterceptInfo(url, mime) {
     debug("Added intercept info " + url);
 
-    var self = this;
+    let self = this;
     this._clearCacheEntry(url, function() {
       self._interceptedInfos.push(new InterceptedInfo(url, mime));
       if (self._interceptedInfos.length == 1) {
@@ -100,8 +132,8 @@ OpenInBrowser.prototype = {
       }
 
       // remove intercepted url's after a while in case the observer is not triggered
-      var timer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
-      var callback = {
+      let timer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
+      let callback = {
         notify: function notifyCallback(timer) {
           self._removeInterceptedInfo(url);
         }
@@ -110,33 +142,29 @@ OpenInBrowser.prototype = {
     });
   },
 
-  _startCapture: function OIB_startCapture() {
+  _startCapture: function OIB__startCapture() {
     debug("Start capture");
-    var observerService = Cc["@mozilla.org/observer-service;1"].
-                          getService(Ci.nsIObserverService);
-    observerService.addObserver(this, EXAMINE_TOPIC, false);
-    observerService.addObserver(this, EXAMINE_MERGED_TOPIC, false);
+    Services.obs.addObserver(this, EXAMINE_TOPIC, false);
+    Services.obs.addObserver(this, EXAMINE_MERGED_TOPIC, false);
   },
 
-  _stopCapture: function OIB_stopCapture() {
-    var observerService = Cc["@mozilla.org/observer-service;1"].
-                          getService(Ci.nsIObserverService);
-    observerService.removeObserver(this, EXAMINE_TOPIC);
-    observerService.removeObserver(this, EXAMINE_MERGED_TOPIC);
+  _stopCapture: function OIB__stopCapture() {
+    Services.obs.removeObserver(this, EXAMINE_TOPIC);
+    Services.obs.removeObserver(this, EXAMINE_MERGED_TOPIC);
     debug("capture stopped");
   },
 
-  _getInterceptedInfo: function OIB_getInterceptedInfo(url) {
-    for (var i = 0; i < this._interceptedInfos.length; i++) {
+  _getInterceptedInfo: function OIB__getInterceptedInfo(url) {
+    for (let i = 0; i < this._interceptedInfos.length; i++) {
       if (this._interceptedInfos[i].url == url)
         return this._interceptedInfos[i];
     }
     return null;
   },
 
-  _removeInterceptedInfo: function OIB_removeInterceptedInfo(url) {
-    var index = -1;
-    for (var i = 0; i < this._interceptedInfos.length; i++) {
+  _removeInterceptedInfo: function OIB__removeInterceptedInfo(url) {
+    let index = -1;
+    for (let i = 0; i < this._interceptedInfos.length; i++) {
       if (this._interceptedInfos[i].url == url) {
         index = i;
         break;
@@ -156,11 +184,11 @@ OpenInBrowser.prototype = {
     if (aTopic != EXAMINE_TOPIC && aTopic != EXAMINE_MERGED_TOPIC)
       return;
 
-    var channel = aSubject.QueryInterface(Ci.nsIHttpChannel);
-    var url = channel.originalURI.spec;
+    let channel = aSubject.QueryInterface(Ci.nsIHttpChannel);
+    let url = channel.originalURI.spec;
 
     debug("Observer inspecting: " + url);
-    var interceptedInfo = this._getInterceptedInfo(url);
+    let interceptedInfo = this._getInterceptedInfo(url);
 
     if (!interceptedInfo)
       return;
