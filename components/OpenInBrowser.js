@@ -35,7 +35,6 @@ const DEBUG = false;
 
 const { Services } = Cu.import("resource://gre/modules/Services.jsm", {});
 const { XPCOMUtils } = Cu.import("resource://gre/modules/XPCOMUtils.jsm", {});
-const { LoadContextInfo } = Cu.import("resource://gre/modules/LoadContextInfo.jsm", {});
 
 
 /**
@@ -76,6 +75,8 @@ OpenInBrowser.prototype = {
         }
       });
     }
+
+    const { LoadContextInfo } = Cu.import("resource://gre/modules/LoadContextInfo.jsm", {});
 
     try {
       let diskStorage = Services.cache2.diskCacheStorage(LoadContextInfo.default, false);
