@@ -3,6 +3,6 @@ VERSION := $(shell grep em:version install.rdf|sed 's@.*em:version>\([^<]*\)<.*@
 TARGET_XPI = $(NAME)-$(VERSION).xpi
 
 xpi:
-	git archive --format zip -o $(TARGET_XPI) HEAD -- . ':!/tests/*'
+	git archive --format zip -o $(TARGET_XPI) HEAD -- .
 
 .PHONY: xpi
