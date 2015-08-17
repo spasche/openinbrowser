@@ -6,7 +6,7 @@
 
     <em:id>openinbrowser@www.spasche.net</em:id>
     <em:name>Open in Browser</em:name>
-    <em:version>1.15-lkn</em:version>
+    <em:version>1.15</em:version>
     <em:type>2</em:type>
     <em:description>Offers the possibility to display documents in browser window.</em:description>
     <em:creator>Sylvain Pasche</em:creator>
