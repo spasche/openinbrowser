@@ -25,13 +25,16 @@ For instance, `application/pdf|audio/ogg-vorbis`.
 
 ## Building the extension
 
-You need a Unix shell with `make` and `zip` in your PATH. Cygwin works well on Windows.
+You need a Unix shell with `make` and `git` in your PATH. Cygwin works well on Windows.
 
 Go in the root of the sources and run:
 
     make xpi
 
-This will generate a `openinbrowser-VERSION.xpi` archive in the parent directory.
+This will generate a `openinbrowser-VERSION.xpi` archive in the current directory.
+
+If you want to modify the sources, first commit your changes in git and then run the above `make` command again.
+You can use `git commit --amend` to update the last commit. 
 
 ## Testing
 
