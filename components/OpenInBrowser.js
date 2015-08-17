@@ -202,6 +202,8 @@ OpenInBrowser.prototype = {
 
     // drop content-disposition header
     channel.setResponseHeader("Content-Disposition", "", false);
+    // prevent the browser from caching the response (https://github.com/spasche/openinbrowser/issues/9)
+    channel.setResponseHeader("Cache-Control", "private", false);
     this._removeInterceptedInfo(url);
   },
 
