@@ -41,7 +41,12 @@ You can use `git commit --amend` to update the last commit.
 A few manual tests are available in the tests directory.
 
 For the HTTP protocol tests, you should serve the tests directory with a Web server that interprets PHP scripts.
-Then you can open the tests/tests.html file (for instance, http://localhost/openinbrowser/tests/tests.html) and follow the
-instructions.
+If you have Docker, you can use the following command:
+
+    cd openinbrowser/tests/
+    docker run -it -p 8080:80 -v "$PWD":/var/www/html php:5.6-apache
+
+which will run a Web server on port 8080. You can then access the tests using http://localhost:8080/tests.html and
+follow the instructions.
 
 For the file protocol test, open the tests/tests.html file from the file system (for instance. file:///C:/openinbrowser/tests/tests.html) and follow the instructions.
