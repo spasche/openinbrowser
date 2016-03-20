@@ -1,3 +1,7 @@
+## 1.17
+
+Remove dependency on FUEL which is removed in Firefox 47 (closes #18).
+
 ## 1.16
 
 Prevent the browser from caching the response (closes #9). Thanks to Alexander Rosenberg for the fix.

@@ -22,6 +22,8 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+Components.utils.import("resource://gre/modules/Services.jsm");
+
 var Ci = Components.interfaces;
 var Cc = Components.classes;
 
@@ -68,7 +70,9 @@ var OpenInBrowser = {
     if (/^http/.test(uri.scheme)) {
       mimes = this.MIMES_HTTP;
 
-      var additionalMimes = Application.prefs.getValue(this.ADDITIONAL_MIMES_PREF, null);
+      try {
+        var additionalMimes = Services.prefs.getCharPref(this.ADDITIONAL_MIMES_PREF);
+      } catch (e) { }
       if (additionalMimes) {
         mimes = mimes.slice();
         for each (let m in additionalMimes.split("|")) {
@@ -137,19 +141,28 @@ var OpenInBrowser = {
                         getService().wrappedJSObject;
       interceptor.addInterceptInfo(uri.spec, mime);
     }
-    var tab = Application.activeWindow.activeTab;
+
+    let targetBrowser = Services.wm.getMostRecentWindow("navigator:browser").gBrowser.selectedBrowser;
+
     if (doc) {
-      var matchingTabs = [];
-      Application.windows.forEach(function(window) {
-        window.tabs.forEach(function(tab) {
-          if (tab.document == doc)
-            matchingTabs.push(tab);
-        })
-      });
-      if (matchingTabs.length == 1) {
-        tab = matchingTabs[0];
+      let matchingBrowsers = [];
+
+      let enumerator = Services.wm.getEnumerator("navigator:browser");
+      while (enumerator.hasMoreElements()) {
+        let window = enumerator.getNext();
+
+        for (let browser of window.gBrowser.browsers) {
+          if (browser.contentDocument == doc) {
+            matchingBrowsers.push(browser);
+          }
+        }
+      }
+
+      if (matchingBrowsers.length == 1) {
+        targetBrowser = matchingBrowsers[0];
       }
     }
-    tab.load(uri);
+
+    targetBrowser.loadURI(uri.spec, null, null);
   }
 };
