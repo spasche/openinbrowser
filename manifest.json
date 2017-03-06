@@ -1,0 +1,14 @@
+{
+  "description": "Offers the possibility to display documents in the browser window.",
+  "manifest_version": 2,
+  "name": "Open in Browser",
+  "version": "2.0",
+
+  "permissions": [
+    "webRequest", "webRequestBlocking", "tabs", "downloads"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
