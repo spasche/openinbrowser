@@ -75,7 +75,7 @@ var OpenInBrowser = {
       } catch (e) { }
       if (additionalMimes) {
         mimes = mimes.slice();
-        for each (let m in additionalMimes.split("|")) {
+        for (let m of additionalMimes.split("|")) {
           if (m)
             mimes.push(m);
         }
@@ -87,7 +87,7 @@ var OpenInBrowser = {
     while (popup.firstChild)
       popup.removeChild(popup.firstChild);
 
-    for each (let mime in mimes) {
+     for (let mime of mimes) {
       var item;
       if (mime == this.SEPARATOR_ID) {
         item = document.createElement("menuseparator");

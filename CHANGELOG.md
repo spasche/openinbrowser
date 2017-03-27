@@ -1,3 +1,7 @@
+## 1.18
+
+Replace deprecated for-each-in loops with ES6 for-of loops (closes #26).
+
 ## 1.17
 
 Remove dependency on FUEL which is removed in Firefox 47 (closes #18).
