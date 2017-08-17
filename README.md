@@ -3,6 +3,8 @@ Open in Browser
 
 Open in Browser is a Firefox extension that allows you to open documents directly in the browser.
 
+**Call for help**: at the moment, this add-on won't be available in Firefox 57 and later. We're looking for help to convert it to a WebExtension and maintain the new version. If you can help, please coordinate on [this issue](https://github.com/spasche/openinbrowser/issues/23).
+
 ## Installation
 
 You can install the extension from its [addons.mozilla.org page](https://addons.mozilla.org/En-us/firefox/addon/open-in-browser/).
