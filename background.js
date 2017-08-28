@@ -63,10 +63,15 @@ function headerRecv(responseDetails) {
 	}
 	console.log("May show dialog for URL " + responseDetails.url);
 
-	if (responseDetails.tabId !== -1) {
-		var url = dispositionPage + "#" + responseDetails.url;
-		return browser.tabs.update(responseDetails.tabId, {url: url});
-	}
+	var url = dispositionPage + "#" + responseDetails.url;
+	browser.tabs.update(responseDetails.tabId, {url: url});
+
+	// This hides the browser's content disposition dialog which would open
+	// otherwise (racily??).
+	var newHeaders = responseDetails.responseHeaders.filter(function(obj){
+		return obj.name !== "content-disposition";
+	});
+	return {responseHeaders: newHeaders};
 }
 
 browser.webRequest.onHeadersReceived.addListener(
