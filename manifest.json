@@ -5,7 +5,7 @@
   "version": "2.0",
 
   "permissions": [
-    "webRequest", "webRequestBlocking", "tabs", "downloads"
+    "webRequest", "webRequestBlocking", "tabs", "downloads", "<all_urls>"
   ],
 
   "background": {
