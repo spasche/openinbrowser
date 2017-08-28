@@ -70,9 +70,12 @@ function headerRecv(responseDetails) {
 }
 
 browser.webRequest.onHeadersReceived.addListener(
-  headerRecv,
-  {urls: ["<all_urls>"]},
-  ["blocking", "responseHeaders"]
+	headerRecv,
+	{
+		urls: ["<all_urls>"],
+		types: ["main_frame"]
+	},
+	["blocking", "responseHeaders"]
 );
 
 function handleMessage(data, sender, sendResponse) {
