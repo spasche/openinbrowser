@@ -2,13 +2,20 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>File disposition</title>
+	<link rel="stylesheet" type="text/css" href="dispatch.css">
 </head>
 <body>
 <h2>What to do with the file?</h2>
 	<ul style="list-style-type:none">
-		<li><button id="download">Download it</button></li>
-		<li><button id="open">Open it in browser</button></li>
-		<li><button id="dialog">Show native choice dialog</button></li>
+		<li class="lim">
+			<div id="download" class="btn">Download it</div>
+		</li>
+		<li class="lim">
+			<div id="open" class="btn">Open it in browser</div>
+		</li>
+		<li class="lim">
+			<div id="dialog" class="btn">Show native choice dialog</div>
+		</li>
 	</ul>
 	<script src="dispatch.js"></script>
 </body>
