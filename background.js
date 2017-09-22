@@ -46,14 +46,24 @@ function headerRecv(responseDetails) {
 				return obj.name.toLowerCase() !== "content-disposition";
 			});
 			if (action.mime) {
-				responseDetails.responseHeaders.map(function(obj){
+				newHeaders = newHeaders.map(function(obj){
 					if (obj.name.toLowerCase() === "content-type") {
 						obj.value = action.mime;
 					}
 					return obj;
 				});
 			}
-			console.log(newHeaders);
+			// Never cache so that the disposition dialog
+			// gets shown again and again.
+			// Turns out otherwise it would cache the modified
+			// response...
+			newHeaders = newHeaders.map(function(obj){
+				if (obj.name.toLowerCase() === "cache-control") {
+					obj.value = "no-cache, no-store, must-revalidate";
+				}
+				return obj;
+			});
+			//console.log(newHeaders);
 			return {responseHeaders: newHeaders};
 		}
 	}
@@ -96,6 +106,27 @@ function headerRecv(responseDetails) {
 	// otherwise (racily??).
 	var newHeaders = responseDetails.responseHeaders.filter(function(obj){
 		return obj.name.toLowerCase() !== "content-disposition";
+	});
+	if (unknownMime) {
+		newHeaders = newHeaders.map(function(obj){
+			if (obj.name.toLowerCase() === "content-type") {
+				// Just some MIME type that errors fast on "display"
+				// (which won't happen)
+				// but without showing an error
+				obj.value = "image/png";
+			}
+			return obj;
+		});
+	}
+	// Never cache so that the disposition dialog
+	// gets shown again and again.
+	// Turns out otherwise it would cache the modified
+	// response...
+	newHeaders = newHeaders.map(function(obj){
+		if (obj.name.toLowerCase() === "cache-control") {
+			obj.value = "no-cache, no-store, must-revalidate";
+		}
+		return obj;
 	});
 	return {responseHeaders: newHeaders};
 }
