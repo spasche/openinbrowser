@@ -7,7 +7,7 @@
 		"message": "What to do with the file?"
 	},
 	"whatToDoNamed": {
-		"message": "What to do with the file '$URL$'?"
+		"message": "What to do with the file '$URL$'?",
 		"placeholders": {
 			"url" : {
 				"content" : "$1",
