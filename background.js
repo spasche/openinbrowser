@@ -32,7 +32,7 @@ function isUnknownMime(mime) {
 }
 
 function headerRecv(responseDetails) {
-	console.log("Headers received for URL ", responseDetails);
+	//console.log("Headers received for URL ", responseDetails);
 	if (urlActions[responseDetails.url]) {
 		var action = urlActions[responseDetails.url];
 		delete urlActions[responseDetails.url];
