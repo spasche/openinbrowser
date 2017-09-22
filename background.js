@@ -38,7 +38,7 @@ function headerRecv(responseDetails) {
 			console.log("Opening in browser: " + responseDetails.url);
 
 			var newHeaders = responseDetails.responseHeaders.filter(function(obj){
-				return obj.name !== "content-disposition";
+				return obj.name.toLowerCase() !== "content-disposition";
 			});
 			// TODO handle MIME types
 			console.log(newHeaders);
@@ -46,15 +46,10 @@ function headerRecv(responseDetails) {
 		}
 	}
 	// Determine whether the download dialog will be shown
-	var mayDownload = false;
-
-	for (obj of responseDetails.responseHeaders) {
-		if (obj.name === "content-disposition") {
-			if (obj.value.startsWith("attachment")) {
-				mayDownload = true;
-			}
-		}
-	}
+	var mayDownload = responseDetails.responseHeaders.some(function(obj) {
+		return obj.name.toLowerCase() === "content-disposition" &&
+			obj.value.startsWith("attachment");
+	});
 
 	// TODO handle MIME types
 
@@ -69,7 +64,7 @@ function headerRecv(responseDetails) {
 	// This hides the browser's content disposition dialog which would open
 	// otherwise (racily??).
 	var newHeaders = responseDetails.responseHeaders.filter(function(obj){
-		return obj.name !== "content-disposition";
+		return obj.name.toLowerCase() !== "content-disposition";
 	});
 	return {responseHeaders: newHeaders};
 }
