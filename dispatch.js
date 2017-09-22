@@ -23,9 +23,14 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+function getParams() {
+	return JSON.parse(decodeURIComponent(window.location.hash.substring(1)));
+}
+
 function action(ev) {
 	var action = ev.target.id;
-	var url = window.location.hash.substring(1);
+	var url = getParams().url;
+
 	browser.runtime.sendMessage({url: url, action: action});
 }
 
@@ -33,11 +38,16 @@ document.getElementById("download").addEventListener("click", action);
 document.getElementById("open").addEventListener("click", action);
 document.getElementById("dialog").addEventListener("click", action);
 
-function i18n(id, msg) {
-	document.getElementById(id).innerHTML = browser.i18n.getMessage(msg);
+function i18n(id, msg, ...params) {
+	document.getElementById(id).innerHTML = browser.i18n.getMessage(msg, ...params);
 }
 
-i18n("whattodo", "whatToDo");
+if (getParams().filename !== "") {
+	i18n("whattodo", "whatToDoNamed", getParams().filename);
+} else {
+	i18n("whattodo", "whatToDo");
+}
+
 i18n("download", "download");
 i18n("open", "openInBrowser");
 i18n("dialog", "nativeChoiceDialog");

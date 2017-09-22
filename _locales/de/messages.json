@@ -7,6 +7,16 @@
 		"message": "Was soll mit der Datei getan werden?",
 		"description": ""
 	},
+	"whatToDoNamed": {
+		"message": "Was soll mit der Datei '$URL$' getan werden?",
+		"description": "",
+		"placeholders": {
+			"url" : {
+				"content" : "$1",
+				"example" : "foo.txt"
+			}
+		}
+	},
 	"download": {
 		"message": "Herunterladen",
 		"description": ""

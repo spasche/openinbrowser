@@ -7,6 +7,16 @@
 		"message": "What to do with the file?",
 		"description": ""
 	},
+	"whatToDoNamed": {
+		"message": "What to do with the file '$URL$'?",
+		"description": "",
+		"placeholders": {
+			"url" : {
+				"content" : "$1",
+				"example" : "foo.txt"
+			}
+		}
+	},
 	"download": {
 		"message": "Download",
 		"description": ""

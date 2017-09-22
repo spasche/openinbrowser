@@ -46,9 +46,17 @@ function headerRecv(responseDetails) {
 		}
 	}
 	// Determine whether the download dialog will be shown
+	var filename = "";
 	var mayDownload = responseDetails.responseHeaders.some(function(obj) {
-		return obj.name.toLowerCase() === "content-disposition" &&
-			obj.value.startsWith("attachment");
+		if (obj.name.toLowerCase() === "content-disposition" &&
+				obj.value.startsWith("attachment")) {
+			// https://stackoverflow.com/a/23054920
+			filename =
+
+/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(obj.value)[1];
+			return true;
+		}
+		return false;
 	});
 
 	// TODO handle MIME types
@@ -58,7 +66,11 @@ function headerRecv(responseDetails) {
 	}
 	console.log("May show dialog for URL " + responseDetails.url);
 
-	var url = dispositionPage + "#" + responseDetails.url;
+	var params = {
+		url: responseDetails.url,
+		filename: filename,
+	};
+	var url = dispositionPage + "#" + JSON.stringify(params);
 	browser.tabs.update(responseDetails.tabId, {url: url});
 
 	// This hides the browser's content disposition dialog which would open
