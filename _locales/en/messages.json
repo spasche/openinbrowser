@@ -1,0 +1,22 @@
+{
+	"extensionDescription": {
+		"message": "Offers the possibility to display documents in the browser window.",
+		"description": "Description of the extension."
+	},
+	"whatToDo": {
+		"message": "What to do with the file?",
+		"description": ""
+	},
+	"download": {
+		"message": "Download",
+		"description": ""
+	},
+	"openInBrowser": {
+		"message": "Open in Browser",
+		"description": ""
+	},
+	"nativeChoiceDialog": {
+		"message": "Show native Choice dialog",
+		"description": ""
+	}
+}

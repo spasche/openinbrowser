@@ -32,3 +32,12 @@ function action(ev) {
 document.getElementById("download").addEventListener("click", action);
 document.getElementById("open").addEventListener("click", action);
 document.getElementById("dialog").addEventListener("click", action);
+
+function i18n(id, msg) {
+	document.getElementById(id).innerHTML = browser.i18n.getMessage(msg);
+}
+
+i18n("whattodo", "whatToDo");
+i18n("download", "download");
+i18n("open", "openInBrowser");
+i18n("dialog", "nativeChoiceDialog");

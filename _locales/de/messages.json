@@ -1,0 +1,22 @@
+{
+	"extensionDescription": {
+		"message": "Ermöglicht Dokumente direkt im Browserfenster zu betrachten.",
+		"description": "Description of the extension."
+	},
+	"whatToDo": {
+		"message": "Was soll mit der Datei getan werden?",
+		"description": ""
+	},
+	"download": {
+		"message": "Herunterladen",
+		"description": ""
+	},
+	"openInBrowser": {
+		"message": "Im Browser öffnen",
+		"description": ""
+	},
+	"nativeChoiceDialog": {
+		"message": "Nativen Dialog anzeigen",
+		"description": ""
+	}
+}
