@@ -32,7 +32,12 @@ function action(ev) {
 	var url = getParams().url;
 	var mode = getParams().mode;
 
-	var msg = {url: url, action: { kind: action, mime: chosenMime }};
+	var mime;
+	if (mode === "mime") {
+		mime = chosenMime;
+	}
+
+	var msg = {url: url, action: { kind: action, mime: mime }};
 	browser.runtime.sendMessage(msg);
 }
 
@@ -75,7 +80,7 @@ function makeChoice(i) {
 	document.getElementById("dropdown-chosen").innerHTML = chosenName;
 }
 
-var chosenMime = "";
+var chosenMime;
 
 buildDropdown(choices);
 makeChoice(0);
