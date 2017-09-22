@@ -4,12 +4,10 @@
 		"description": "Description of the extension."
 	},
 	"whatToDo": {
-		"message": "What to do with the file?",
-		"description": ""
+		"message": "What to do with the file?"
 	},
 	"whatToDoNamed": {
-		"message": "What to do with the file '$URL$'?",
-		"description": "",
+		"message": "What to do with the file '$URL$'?"
 		"placeholders": {
 			"url" : {
 				"content" : "$1",
@@ -18,47 +16,37 @@
 		}
 	},
 	"download": {
-		"message": "Download",
-		"description": ""
+		"message": "Download"
 	},
 	"openInBrowser": {
-		"message": "Open in Browser",
-		"description": ""
+		"message": "Open in Browser"
 	},
 	"asInOpenAs": {
 		"message": "as",
 		"description": "'as' as in 'Open in Browser as'"
 	},
 	"nativeChoiceDialog": {
-		"message": "Show native Choice dialog",
-		"description": ""
+		"message": "Show native Choice dialog"
 	},
 	"text/plain": {
-		"message": "Text",
-		"description": ""
+		"message": "Text"
 	},
 	"application/pdf": {
-		"message": "PDF",
-		"description": ""
+		"message": "PDF"
 	},
 	"image/png": {
-		"message": "Graphics",
-		"description": ""
+		"message": "Graphics"
 	},
 	"text/html": {
-		"message": "Website (HTML)",
-		"description": ""
+		"message": "Website (HTML)"
 	},
 	"view-source": {
-		"message": "Source code",
-		"description": ""
+		"message": "Source code"
 	},
 	"application/json": {
-		"message": "Json",
-		"description": ""
+		"message": "Json"
 	},
 	"text/xml": {
-		"message": "XML",
-		"description": ""
+		"message": "XML"
 	}
 }
