@@ -27,20 +27,32 @@ var dispositionPage = browser.extension.getURL("dispatch.html");
 
 var urlActions = {};
 
+function isUnknownMime(mime) {
+	return (mime.startsWith("text/x-")) || (mime.endsWith("/octet-stream"));
+}
+
 function headerRecv(responseDetails) {
+	console.log("Headers received for URL ", responseDetails);
 	if (urlActions[responseDetails.url]) {
 		var action = urlActions[responseDetails.url];
 		delete urlActions[responseDetails.url];
-		if (action === "dialog") {
+		if (action.kind === "dialog") {
 			console.log("Showing native dialog: " + responseDetails.url);
 			return;
-		} else if (action === "open") {
+		} else if (action.kind === "open") {
 			console.log("Opening in browser: " + responseDetails.url);
 
 			var newHeaders = responseDetails.responseHeaders.filter(function(obj){
 				return obj.name.toLowerCase() !== "content-disposition";
 			});
-			// TODO handle MIME types
+			if (action.mime) {
+				responseDetails.responseHeaders.map(function(obj){
+					if (obj.name.toLowerCase() === "content-type") {
+						obj.value = action.mime;
+					}
+					return obj;
+				});
+			}
 			console.log(newHeaders);
 			return {responseHeaders: newHeaders};
 		}
@@ -58,19 +70,26 @@ function headerRecv(responseDetails) {
 		}
 		return false;
 	});
+	var unknownMime = responseDetails.responseHeaders.some(function(obj) {
+		return obj.name.toLowerCase() === "content-type" && isUnknownMime(obj.value);
+	});
 
-	// TODO handle MIME types
-
-	if (!mayDownload) {
+	if (!(mayDownload || unknownMime)) {
 		return;
 	}
 	console.log("May show dialog for URL " + responseDetails.url);
 
+	var mode = "cdisp";
+	if (unknownMime) {
+		mode = "mime";
+	}
 	var params = {
 		url: responseDetails.url,
 		filename: filename,
+		mode: mode,
 	};
-	var url = dispositionPage + "#" + JSON.stringify(params);
+	var url = dispositionPage + "#" + encodeURIComponent(JSON.stringify(params));
+
 	browser.tabs.update(responseDetails.tabId, {url: url});
 
 	// This hides the browser's content disposition dialog which would open
@@ -95,20 +114,28 @@ function handleMessage(data, sender, sendResponse) {
 		var tabId = sender.tab.id;
 		console.log("Message from the page: ",
 			data);
-		urlActions[data.url] = data.action;
-		switch (data.action) {
+		var createEntry = true;
+		switch (data.action.kind) {
 			case "download":
 				// Launch the download
 				browser.downloads.download({url: data.url});
 				break;
 			case "open":
 				// Just re-send the request.
-				browser.tabs.update(tabId, {url: data.url});
+				if (data.action.mime === "view-source") {
+					createEntry = false;
+					browser.tabs.update(tabId, {url: "view-source:" + data.url});
+				} else {
+					browser.tabs.update(tabId, {url: data.url});
+				}
 				break;
 			case "dialog":
 				// Just re-send the request.
 				browser.tabs.update(tabId, {url: data.url});
 				break;
+		}
+		if (createEntry) {
+			urlActions[data.url] = data.action;
 		}
 	}
 }

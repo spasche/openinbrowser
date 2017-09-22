@@ -30,24 +30,83 @@ function getParams() {
 function action(ev) {
 	var action = ev.target.id;
 	var url = getParams().url;
+	var mode = getParams().mode;
 
-	browser.runtime.sendMessage({url: url, action: action});
+	var msg = {url: url, action: { kind: action, mime: chosenMime }};
+	browser.runtime.sendMessage(msg);
 }
 
 document.getElementById("download").addEventListener("click", action);
 document.getElementById("open").addEventListener("click", action);
 document.getElementById("dialog").addEventListener("click", action);
 
-function i18n(id, msg, ...params) {
-	document.getElementById(id).innerHTML = browser.i18n.getMessage(msg, ...params);
+function buildDropdown(choices) {
+	var list = document.getElementById("dropdown-list");
+	list.innerHTML = '';
+	for (i = 0; i < choices.length; i++) {
+		var l = document.createElement('a');
+		var text = browser.i18n.getMessage(choices[i]);
+		l.appendChild(document.createTextNode(text));
+		l.href = "javascript:void(0)";
+		l.addEventListener("click", dropdownAction);
+		l.number = i;
+		list.appendChild(l);
+	}
 }
 
-if (getParams().filename !== "") {
-	i18n("whattodo", "whatToDoNamed", getParams().filename);
-} else {
-	i18n("whattodo", "whatToDo");
+var choices = [
+	"text/plain",
+	"application/pdf",
+	// Note:
+	// For image mime types, it relies on the fact that Gecko will correctly
+	// display an image even if the server sent it with a mime type that does not
+	// match the real image type. For instance, a PNG image sent with
+	// image/jpeg Content-Type will still be displayed properly.
+	"image/png",
+	"text/html",
+	"view-source",
+	"application/json",
+	"text/xml",
+];
+
+function makeChoice(i) {
+	chosenMime = choices[i];
+	var chosenName = browser.i18n.getMessage(chosenMime);
+	document.getElementById("dropdown-chosen").innerHTML = chosenName;
 }
 
-i18n("download", "download");
-i18n("open", "openInBrowser");
-i18n("dialog", "nativeChoiceDialog");
+var chosenMime = "";
+
+buildDropdown(choices);
+makeChoice(0);
+
+function dropdownAction(ev) {
+	var i = ev.target.number;
+	makeChoice(i);
+}
+
+var mode = getParams().mode;
+if (mode !== "mime") {
+	// MIME type known, no "open as" GUI needed
+	document.getElementById("open-as").style.display = "none";
+}
+
+function localize() {
+	function i18n(id, msg, ...params) {
+		document.getElementById(id).innerHTML = browser.i18n.getMessage(msg, ...params);
+	}
+
+	if (getParams().filename !== "") {
+		i18n("whattodo", "whatToDoNamed", getParams().filename);
+	} else {
+		i18n("whattodo", "whatToDo");
+	}
+
+	i18n("download", "download");
+	i18n("open", "openInBrowser");
+	i18n("dialog", "nativeChoiceDialog");
+
+	i18n("as", "asInOpenAs");
+}
+
+localize();

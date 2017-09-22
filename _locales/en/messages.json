@@ -25,8 +25,40 @@
 		"message": "Open in Browser",
 		"description": ""
 	},
+	"asInOpenAs": {
+		"message": "as",
+		"description": "'as' as in 'Open in Browser as'"
+	},
 	"nativeChoiceDialog": {
 		"message": "Show native Choice dialog",
+		"description": ""
+	},
+	"text/plain": {
+		"message": "Text",
+		"description": ""
+	},
+	"application/pdf": {
+		"message": "PDF",
+		"description": ""
+	},
+	"image/png": {
+		"message": "Graphics",
+		"description": ""
+	},
+	"text/html": {
+		"message": "Website (HTML)",
+		"description": ""
+	},
+	"view-source": {
+		"message": "Source code",
+		"description": ""
+	},
+	"application/json": {
+		"message": "Json",
+		"description": ""
+	},
+	"text/xml": {
+		"message": "XML",
 		"description": ""
 	}
 }
