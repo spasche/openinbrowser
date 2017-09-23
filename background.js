@@ -27,8 +27,40 @@ var dispositionPage = browser.extension.getURL("dispatch.html");
 
 var urlActions = {};
 
+// https://dxr.mozilla.org/mozilla-central/source/netwerk/mime/nsMimeTypes.h
+var textBlacklist = [
+	"text/enriched",
+	"text/calendar",
+	"text/html",
+	"text/mdl",
+	"text/plain",
+	"text/richtext",
+	"text/vcard",
+	"text/css",
+	"text/jsss",
+	"text/json",
+	"text/xml",
+	"text/rdf",
+	"text/vtt",
+	"text/ecmascript",
+	"text/javascript",
+	"text/xsl",
+	"text/event-stream",
+	"text/cache-manifest"
+];
+
 function isUnknownMime(mime) {
-	return (mime.startsWith("text/x-")) || (mime.endsWith("/octet-stream"));
+	var token = /[\w\d!#\$%&'\*\+\-\.\^`|\~]+/;
+	var r = new RegExp("(" + token.source + "/" + token.source + ")*(\s*;\s*[^;]+)*");
+	var typeSubtype = r.exec(mime)[1];
+	//console.log("MIME: '" + typeSubtype + "'");
+	if (typeSubtype.startsWith('text/') && (textBlacklist.indexOf(typeSubtype) === -1)) {
+		return true;
+	}
+	if (typeSubtype.endsWith('/octet-stream')) {
+		return true;
+	}
+	return false;
 }
 
 function headerRecv(responseDetails) {
