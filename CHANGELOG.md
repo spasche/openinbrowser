@@ -1,3 +1,7 @@
+## 2.0
+
+Complete rewrite as Webextension.
+
 ## 1.18
 
 Replace deprecated for-each-in loops with ES6 for-of loops (closes #26).
