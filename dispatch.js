@@ -50,6 +50,10 @@ function removeChildren(item) {
 		item.removeChild(item.firstChild);
 	}
 }
+function setTextasChild(item, text) {
+	removeChildren(item);
+	item.appendChild(document.createTextNode(text));
+}
 
 function buildDropdown(choices) {
 	var list = document.getElementById("dropdown-list");
@@ -57,7 +61,7 @@ function buildDropdown(choices) {
 	for (i = 0; i < choices.length; i++) {
 		var l = document.createElement('a');
 		var text = browser.i18n.getMessage(choices[i]);
-		l.appendChild(document.createTextNode(text));
+		setTextasChild(l, text);
 		l.addEventListener("click", dropdownAction);
 		l.number = i;
 		list.appendChild(l);
@@ -82,10 +86,7 @@ var choices = [
 function makeChoice(i) {
 	chosenMime = choices[i];
 	var chosenName = browser.i18n.getMessage(chosenMime);
-	var chosenNode = document.createTextNode(chosenName);
-	var chosenDropdown = document.getElementById("dropdown-chosen");
-	removeChildren(chosenDropdown);
-	chosenDropdown.appendChild(chosenNode);
+	setTextasChild(document.getElementById("dropdown-chosen"), chosenName);
 }
 
 var chosenMime;
@@ -106,7 +107,7 @@ if (mode !== "mime") {
 
 function localize() {
 	function i18n(id, msg, ...params) {
-		document.getElementById(id).innerHTML = browser.i18n.getMessage(msg, ...params);
+		setTextasChild(document.getElementById(id), browser.i18n.getMessage(msg, ...params));
 	}
 
 	if (getParams().filename !== "") {
