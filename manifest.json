@@ -7,7 +7,7 @@
 
   "name": "Open in Browser",
   "description": "__MSG_extensionDescription__",
-  "version": "2.0beta3",
+  "version": "2.0beta4",
   "manifest_version": 2,
   "default_locale": "en",
 
