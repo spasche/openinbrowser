@@ -52,7 +52,6 @@ function buildDropdown(choices) {
 		var l = document.createElement('a');
 		var text = browser.i18n.getMessage(choices[i]);
 		l.appendChild(document.createTextNode(text));
-		l.href = "javascript:void(0)";
 		l.addEventListener("click", dropdownAction);
 		l.number = i;
 		list.appendChild(l);

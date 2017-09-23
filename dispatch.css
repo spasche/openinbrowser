@@ -68,6 +68,7 @@ h2 {
 }
 
 .ddnc a:hover {
+	cursor: pointer;
 	background-color: #c9c9c9;
 }
 
