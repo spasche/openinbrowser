@@ -76,7 +76,10 @@ var choices = [
 function makeChoice(i) {
 	chosenMime = choices[i];
 	var chosenName = browser.i18n.getMessage(chosenMime);
-	document.getElementById("dropdown-chosen").innerHTML = chosenName;
+	var chosenNode = document.createTextNode(chosenName);
+	var chosenDropdown = document.getElementById("dropdown-chosen");
+	chosenDropdown.innerHTML = '';
+	chosenDropdown.appendChild(chosenNode);
 }
 
 var chosenMime;
