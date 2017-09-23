@@ -45,9 +45,15 @@ document.getElementById("download").addEventListener("click", action);
 document.getElementById("open").addEventListener("click", action);
 document.getElementById("dialog").addEventListener("click", action);
 
+function removeChildren(item) {
+	while (item.firstChild) {
+		item.removeChild(item.firstChild);
+	}
+}
+
 function buildDropdown(choices) {
 	var list = document.getElementById("dropdown-list");
-	list.innerHTML = '';
+	removeChildren(list);
 	for (i = 0; i < choices.length; i++) {
 		var l = document.createElement('a');
 		var text = browser.i18n.getMessage(choices[i]);
@@ -78,7 +84,7 @@ function makeChoice(i) {
 	var chosenName = browser.i18n.getMessage(chosenMime);
 	var chosenNode = document.createTextNode(chosenName);
 	var chosenDropdown = document.getElementById("dropdown-chosen");
-	chosenDropdown.innerHTML = '';
+	removeChildren(chosenDropdown);
 	chosenDropdown.appendChild(chosenNode);
 }
 
