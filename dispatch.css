@@ -1,0 +1,77 @@
+body {
+	font: message-box;
+	background-color: #f9f9f9;
+	font-size: 1.5rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+}
+
+.btn, .ddn, .ddni, .ddnr, .tr {
+	display: inline-block;
+}
+
+.btn, .ddn {
+	border: 2px solid #97a1ad;
+	border-radius: 3px;
+}
+
+.btn {
+	padding: 9px 13px;
+	min-width: 300px;
+}
+
+.btn:hover {
+	cursor: pointer;
+	border-color: #40444a;
+	background-color: #c9c9c9;
+}
+
+.ddn {
+	min-width: 300px;
+	position: relative;
+}
+
+.ddni {
+	padding: 9px 13px;
+}
+
+.ddnr {
+	padding: 9px 13px;
+	border-left: 2px solid #97a1ad;
+	float: right;
+}
+
+.ddn:hover .ddnr {
+	background-color: #dfdfdf;
+}
+
+.ddn:hover .ddnc {
+	display: block;
+}
+
+.ddnc {
+	display: none;
+	width: 100%;
+	background-color: #dfdfdf;
+	position: absolute;
+	box-sizing: border-box;
+	z-index: 1;
+}
+
+.ddnc a {
+	text-decoration: none;
+	color: black;
+	padding: 9px 13px;
+	display: block;
+}
+
+.ddnc a:hover {
+	cursor: pointer;
+	background-color: #c9c9c9;
+}
+
+.lim {
+	padding: 4px 0px;
+}

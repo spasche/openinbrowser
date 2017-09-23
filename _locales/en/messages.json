@@ -1,0 +1,52 @@
+{
+	"extensionDescription": {
+		"message": "Offers the possibility to display documents in the browser window.",
+		"description": "Description of the extension."
+	},
+	"whatToDo": {
+		"message": "What to do with the file?"
+	},
+	"whatToDoNamed": {
+		"message": "What to do with the file '$URL$'?",
+		"placeholders": {
+			"url" : {
+				"content" : "$1",
+				"example" : "foo.txt"
+			}
+		}
+	},
+	"download": {
+		"message": "Download"
+	},
+	"openInBrowser": {
+		"message": "Open in Browser"
+	},
+	"asInOpenAs": {
+		"message": "as",
+		"description": "'as' as in 'Open in Browser as'"
+	},
+	"nativeChoiceDialog": {
+		"message": "Show native Choice dialog"
+	},
+	"text/plain": {
+		"message": "Text"
+	},
+	"application/pdf": {
+		"message": "PDF"
+	},
+	"image/png": {
+		"message": "Graphics"
+	},
+	"text/html": {
+		"message": "Website (HTML)"
+	},
+	"view-source": {
+		"message": "Source code"
+	},
+	"application/json": {
+		"message": "Json"
+	},
+	"text/xml": {
+		"message": "XML"
+	}
+}

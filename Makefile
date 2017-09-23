@@ -1,5 +1,5 @@
 NAME := openinbrowser
-VERSION := $(shell grep em:version install.rdf|sed 's@.*em:version>\([^<]*\)<.*@\1@')
+VERSION := $(shell grep '"version":' manifest.json|sed 's@.*version.*:\s*"\([^"]*\)".*@\1@')
 TARGET_XPI = $(NAME)-$(VERSION).xpi
 
 xpi:

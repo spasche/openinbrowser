@@ -3,16 +3,9 @@ Open in Browser
 
 Open in Browser is a Firefox extension that allows you to open documents directly in the browser.
 
-**Call for help**: at the moment, this add-on won't be available in Firefox 57 and later. We're looking for help to convert it to a WebExtension and maintain the new version. If you can help, please coordinate on [this issue](https://github.com/spasche/openinbrowser/issues/23).
-
 ## Installation
 
 You can install the extension from its [addons.mozilla.org page](https://addons.mozilla.org/En-us/firefox/addon/open-in-browser/).
-
-## Screenshots
-
-![Opening Dialog](https://addons.cdn.mozilla.net/img/uploads/previews/full/23/23688.png)
-![View as Menu](https://addons.cdn.mozilla.net/img/uploads/previews/full/23/23689.png)
 
 ## Configuration
 
@@ -21,9 +14,10 @@ For instance, `application/pdf|audio/ogg-vorbis`.
 
 ## Limitations and Issues
 
-* It does not work for protocols other that HTTP because of a technical limitation. It is only possible to view the content as source in this case.
-* Automatic opening in browser is not implemented, that's why the "Do this automatically for files like this..." checkbox is greyed out when open in browser is selected.
-* Some users have reported compatibility issues with the "Tab Mix Plus" add-on.
+* It does not work for protocols other that HTTP because of a technical limitation.
+* Automatic opening in browser is not implemented.
+* You can't customize things yet.
+* It creates its own UI instead of extending the existing UI.
 
 ## Building the extension
 

@@ -1,0 +1,52 @@
+{
+	"extensionDescription": {
+		"message": "Ermöglicht Dokumente direkt im Browserfenster zu betrachten.",
+		"description": "Description of the extension."
+	},
+	"whatToDo": {
+		"message": "Was soll mit der Datei getan werden?"
+	},
+	"whatToDoNamed": {
+		"message": "Was soll mit der Datei '$URL$' getan werden?",
+		"placeholders": {
+			"url" : {
+				"content" : "$1",
+				"example" : "foo.txt"
+			}
+		}
+	},
+	"download": {
+		"message": "Herunterladen"
+	},
+	"openInBrowser": {
+		"message": "Im Browser öffnen"
+	},
+	"asInOpenAs": {
+		"message": "als",
+		"description": "'as' as in 'Open in Browser as'"
+	},
+	"nativeChoiceDialog": {
+		"message": "Nativen Dialog anzeigen"
+	},
+	"text/plain": {
+		"message": "Text"
+	},
+	"application/pdf": {
+		"message": "PDF"
+	},
+	"image/png": {
+		"message": "Grafik"
+	},
+	"text/html": {
+		"message": "Webseite (HTML)"
+	},
+	"view-source": {
+		"message": "Seitenquelltext"
+	},
+	"application/json": {
+		"message": "Json"
+	},
+	"text/xml": {
+		"message": "XML"
+	}
+}

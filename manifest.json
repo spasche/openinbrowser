@@ -1,0 +1,21 @@
+{
+  "applications": {
+    "gecko": {
+      "strict_min_version": "57.0a1"
+    }
+  },
+
+  "name": "Open in Browser",
+  "description": "__MSG_extensionDescription__",
+  "version": "2.0beta2",
+  "manifest_version": 2,
+  "default_locale": "en",
+
+  "permissions": [
+    "webRequest", "webRequestBlocking", "tabs", "downloads", "<all_urls>"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
